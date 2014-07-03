@@ -1,12 +1,3 @@
-
-
-
-
-
-
-
-
-
 var Engine = require('famous/core/Engine');
 var Surface = require('famous/core/Surface');
 var Transform = require('famous/core/Transform');

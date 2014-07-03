@@ -1,17 +1,10 @@
-
-
-
-
-
-
-
-
-
 var Engine = require('famous/core/Engine');
 var Surface = require('famous/core/Surface');
 var Transform = require('famous/core/Transform');
 var StateModifier = require('famous/modifiers/StateModifier');
-var Easing = require('famous/transitions/Easing');
+var Transitionable = require('famous/transitions/Transitionable');
+var SpringTransition = require('famous/transitions/SpringTransition');
+Transitionable.registerMethod('spring', SpringTransition);
 
 var mainContext = Engine.createContext();
 
@@ -24,19 +17,18 @@ var surface = new Surface({
   }
 });
 
-var stateModifier = new StateModifier();
+var stateModifier = new StateModifier({
+  origin: [0.5, 0]
+});
 
 mainContext.add(stateModifier).add(surface);
 
-stateModifier.setTransform(
-  Transform.translate(0, 300, 0),
-  { duration : 1000, curve: Easing.inExpo }
-);
+var spring = {
+  method: 'spring',
+  period: 1000,
+  dampingRatio: 0.3
+};
 
 stateModifier.setTransform(
-  Transform.translate(100, 300, 0),
-  { duration : 800, curve: Easing.outElastic },
-  function() {
-    surface.setContent('finished');
-  }
+  Transform.translate(0, 300, 0), spring
 );
