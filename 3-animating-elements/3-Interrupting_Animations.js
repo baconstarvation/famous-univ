@@ -1,10 +1,5 @@
-
-
-
-
-
-
-
+// You can interrupt an animation before it's over by calling .halt()
+// on the state modifier.
 
 
 var Engine = require('famous/core/Engine');
