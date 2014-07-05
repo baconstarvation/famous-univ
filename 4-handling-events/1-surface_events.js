@@ -20,3 +20,28 @@ surface.on('click', function() {
     backgroundColor: '#878785'
   });
 });
+
+
+/*
+Surface Events
+
+Famo.us surfaces capture all the familiar DOM events listed below.
+
+You can register these events with a callback function using the .on() method.
+
+Surface events:
+
+click
+mousedown
+mousemove
+mouseup
+mouseover
+mouseout
+touchstart
+touchmove
+touchend
+touchcancel
+keydown
+keyup
+keypress
+*/
