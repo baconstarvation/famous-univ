@@ -1,4 +1,4 @@
-/*** SlideShowView ***/
+/*** SlideView ***/
 
 // define this module in Require.JS
 define(function(require, exports, module) {
@@ -9,29 +9,23 @@ define(function(require, exports, module) {
 		var Transform = require('famous/core/Transform');
 		var StateModifier = require('famous/modifiers/StateModifier');
 
-		var SlideView = require('views/SlideView');
+		// Constructor function for our SlideView class
+		function SlideView() {
 
-		// Constructor function for our SlideShowView class
-		function SlideShowView() {
-
-				// Applies View's constructor function to SlideShowView class
+				// Applies View's constructor function to SlideView class
 				View.apply(this, arguments);
-
-				var slideView = new SlideView();
-
-        this.add(slideView);
 		}
 
-		// Establishes prototype chain for SlideShowView class to inherit from View
-		SlideShowView.prototype = Object.create(View.prototype);
-		SlideShowView.prototype.constructor = SlideShowView;
+		// Establishes prototype chain for SlideView class to inherit from View
+		SlideView.prototype = Object.create(View.prototype);
+		SlideView.prototype.constructor = SlideView;
 
-		// Default options for SlideShowView class
-		SlideShowView.DEFAULT_OPTIONS = {};
+		// Default options for SlideView class
+		SlideView.DEFAULT_OPTIONS = {};
 
 		// Define your helper functions and prototype methods here
 
-		module.exports = SlideShowView;
+		module.exports = SlideView;
 });
 
 
