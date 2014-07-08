@@ -11,6 +11,9 @@ define(function(require, exports, module) {
 	// create a new instance of app view
 		var appView = new AppView();
 
+	// create a new instance of our slideshow view
+		var slideshowView = SlideShowView();
+
 	// add the instance to the context
 		mainContext.add(appView);
 });
