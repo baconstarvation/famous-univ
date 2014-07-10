@@ -1,39 +1,28 @@
-/*** SlideShowView ***/
+/*** SlideshowView ***/
 
-// define this module in Require.JS
 define(function(require, exports, module) {
+    var View = require('famous/core/View');
+    var Surface = require('famous/core/Surface');
+    var Transform = require('famous/core/Transform');
+    var StateModifier = require('famous/modifiers/StateModifier');
 
-		// Import additional modules to be used in this view
-		var View = require('famous/core/View');
-		var Surface = require('famous/core/Surface');
-		var Transform = require('famous/core/Transform');
-		var StateModifier = require('famous/modifiers/StateModifier');
+    var SlideView = require('views/SlideView');
 
-		var SlideView = require('views/SlideView');
+    function SlideshowView() {
+        View.apply(this, arguments);
 
-		// Constructor function for our SlideShowView class
-		function SlideShowView() {
-
-				// Applies View's constructor function to SlideShowView class
-				View.apply(this, arguments);
-
-				var slideView = new SlideView();
+        var slideView = new SlideView();
 
         this.add(slideView);
-		}
+    }
 
-		// Establishes prototype chain for SlideShowView class to inherit from View
-		SlideShowView.prototype = Object.create(View.prototype);
-		SlideShowView.prototype.constructor = SlideShowView;
+    SlideshowView.prototype = Object.create(View.prototype);
+    SlideshowView.prototype.constructor = SlideshowView;
 
-		// Default options for SlideShowView class
-		SlideShowView.DEFAULT_OPTIONS = {};
+    SlideshowView.DEFAULT_OPTIONS = {};
 
-		// Define your helper functions and prototype methods here
-
-		module.exports = SlideShowView;
+    module.exports = SlideshowView;
 });
-
 
 
 // subclass of the view class & inherits its prototype objects & methods

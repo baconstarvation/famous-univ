@@ -6,8 +6,17 @@ define(function(require, exports, module) {
     var Transform = require('famous/core/Transform');
     var StateModifier = require('famous/modifiers/StateModifier');
 
+    // import the SlideshowView class
+    var SlideshowView = require('views/SlideshowView');
+
     function AppView() {
         View.apply(this, arguments);
+
+        // create a new instance of slideshow view
+        var slideshowView = new SlideshowView();
+
+        // add the instance to app view
+        this.add(slideshowView);
     }
 
     AppView.prototype = Object.create(View.prototype);
@@ -17,7 +26,6 @@ define(function(require, exports, module) {
 
     module.exports = AppView;
 });
-
 
 
 // subclass of the view class & inherits its prototype objects & methods
