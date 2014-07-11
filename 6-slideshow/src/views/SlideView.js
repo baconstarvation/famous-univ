@@ -1,4 +1,4 @@
-/*** SlideView ***/
+/*** SlideView.js ***/
 
 define(function(require, exports, module) {
     var View = require('famous/core/View');
@@ -9,23 +9,25 @@ define(function(require, exports, module) {
     function SlideView() {
         View.apply(this, arguments);
 
+        // this.options created from any options passed in during
+        // instantiation and the default options (explanation below)
         this.rootModifier = new StateModifier({
-            size: [400, 450]
+            size: this.options.size
         });
 
         this.mainNode = this.add(this.rootModifier);
 
-        // make sure you invoke the helper function
-        // in the right context by using .call()
         _createBackground.call(this);
     }
 
     SlideView.prototype = Object.create(View.prototype);
     SlideView.prototype.constructor = SlideView;
 
-    SlideView.DEFAULT_OPTIONS = {};
+    // setting the size property in default options here
+    SlideView.DEFAULT_OPTIONS = {
+        size: [400, 450]
+    };
 
-    // the _ before the function name indicates it's a private function
     function _createBackground() {
         var background = new Surface({
             properties: {
@@ -39,7 +41,4 @@ define(function(require, exports, module) {
 
     module.exports = SlideView;
 });
-
-
-
 
