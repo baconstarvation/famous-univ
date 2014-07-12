@@ -6,6 +6,7 @@ define(function(require, exports, module) {
     var Transform = require('famous/core/Transform');
     var StateModifier = require('famous/modifiers/StateModifier');
 
+    /* 
     var SlideView = require('views/SlideView');
 
     function SlideshowView() {
@@ -15,24 +16,26 @@ define(function(require, exports, module) {
 
         this.add(slideView);
     }
+    */
+
+    function SlideshowView() {
+        View.apply(this, arguments);
+
+        this.rootModifier = new StateModifier({
+            size: this.options.size,
+            origin: [0.5, 0],
+            align: [0.5, 0]
+        });
+
+        this.mainNode = this.add(this.rootModifier);
+    }
 
     SlideshowView.prototype = Object.create(View.prototype);
     SlideshowView.prototype.constructor = SlideshowView;
 
-    SlideshowView.DEFAULT_OPTIONS = {};
+    SlideshowView.DEFAULT_OPTIONS = {
+        size: [450, 500]
+    };
 
     module.exports = SlideshowView;
 });
-
-
-// subclass of the view class & inherits its prototype objects & methods
-
-
-// contains the following:
-
-// A render node that all the components in our view will attach to
-
-// Event input and output handlers
-
-// Options extended from the default options & the options passed in during
-// instantiation

@@ -61,7 +61,7 @@ define(function(require, exports, module) {
         var filmModifier = new StateModifier({
             origin: [0.5, 0],
             align: [0.5, 0],
-            trasnform: Transform.translate(0, this.options.filmBorder, 1)
+            trasnform: Transform.translate(0, this.options.filmBorder, 2)
         });
         
         this.mainNode.add(filmModifier).add(film);
@@ -89,31 +89,6 @@ define(function(require, exports, module) {
 
     module.exports = SlideView;
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
