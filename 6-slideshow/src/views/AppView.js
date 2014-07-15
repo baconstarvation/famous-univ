@@ -7,35 +7,28 @@ define(function(require, exports, module) {
     var StateModifier = require('famous/modifiers/StateModifier');
 
     // import the SlideshowView class
-    var SlideshowView = require('views/SlideshowView');
+    var SlideshowView = require('views/SlideShowView');
 
     function AppView() {
         View.apply(this, arguments);
 
-        // create a new instance of slideshow view
-        var slideshowView = new SlideshowView();
+        // passing in data
+        var slideShowView = new SlideShowView({
+            data: this.options.data
+        });
 
         // add the instance to app view
-        this.add(slideshowView);
+        this.add(slideShowView);
     }
 
     AppView.prototype = Object.create(View.prototype);
     AppView.prototype.constructor = AppView;
 
-    AppView.DEFAULT_OPTIONS = {};
+    AppView.DEFAULT_OPTIONS = {
+        // it's a good idea to add a property in the default options
+        // even when it's undefined
+        data: undefined
+    };
 
     module.exports = AppView;
 });
-
-
-// subclass of the view class & inherits its prototype objects & methods
-
-
-// contains the following:
-
-// A render node that all the components in our view will attach to
-
-// Event input and output handlers
-
-// Options extended from the default options & the options passed in during
-// instantiation
