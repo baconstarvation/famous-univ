@@ -5,6 +5,7 @@ define(function(require, exports, module) {
     var Surface = require('famous/core/Surface');
     var Transform = require('famous/core/Transform');
     var StateModifier = require('famous/modifiers/StateModifier');
+    var Lightbox = require('famous/views/Lightbox');
 
     /* 
     var SlideView = require('views/SlideView');
@@ -28,14 +29,22 @@ define(function(require, exports, module) {
         });
 
         this.mainNode = this.add(this.rootModifier);
+
+        _createLightbox.call(this);
     }
 
     SlideshowView.prototype = Object.create(View.prototype);
     SlideshowView.prototype.constructor = SlideshowView;
 
     SlideshowView.DEFAULT_OPTIONS = {
-        size: [450, 500]
+        size: [450, 500],
+        lightboxOpts: {}
     };
+
+    function _createLightbox() {
+        this.lightbox = new Lightbox(this.options.lightboxOpts);
+        this.mainNode.add(this.lightbox);
+    }
 
     module.exports = SlideshowView;
 });
