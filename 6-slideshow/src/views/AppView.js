@@ -7,18 +7,18 @@ define(function(require, exports, module) {
     var StateModifier = require('famous/modifiers/StateModifier');
 
     // import the SlideshowView class
-    var SlideshowView = require('views/SlideShowView');
+    var SlideshowView = require('views/SlideshowView');
 
     function AppView() {
         View.apply(this, arguments);
 
         // passing in data
-        var slideShowView = new SlideShowView({
+        var slideshowView = new SlideshowView({
             data: this.options.data
         });
 
         // add the instance to app view
-        this.add(slideShowView);
+        this.add(slideshowView);
     }
 
     AppView.prototype = Object.create(View.prototype);

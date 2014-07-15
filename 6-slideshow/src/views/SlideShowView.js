@@ -7,18 +7,6 @@ define(function(require, exports, module) {
     var StateModifier = require('famous/modifiers/StateModifier');
     var Lightbox = require('famous/views/Lightbox');
 
-    /* 
-    var SlideView = require('views/SlideView');
-
-    function SlideshowView() {
-        View.apply(this, arguments);
-
-        var slideView = new SlideView();
-
-        this.add(slideView);
-    }
-    */
-
     function SlideshowView() {
         View.apply(this, arguments);
 
@@ -60,8 +48,15 @@ define(function(require, exports, module) {
             });
 
             this.slides.push(slide);
-        });
+        }
+
+        this.showCurrentSlide();
     }
+
+    SlideshowView.prototype.showCurrentSlide = function() {
+        var slide = this.slides[this.currentIndex];
+        this.lightbox.show(slide);
+    };
 
     module.exports = SlideshowView;
 });
