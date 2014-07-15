@@ -6,6 +6,7 @@ define(function(require, exports, module) {
     var Transform = require('famous/core/Transform');
     var StateModifier = require('famous/modifiers/StateModifier');
     var Lightbox = require('famous/views/Lightbox');
+    var SlideView = require('views/SlideView');
 
     function SlideshowView() {
         View.apply(this, arguments);
@@ -36,12 +37,11 @@ define(function(require, exports, module) {
         this.mainNode.add(this.lightbox);
     }
 
-
     function _createSlides() {
         this.slides = [];
         this.currentIndex = 0;
 
-        for (var i = 0; i < this.options.data.length; i++ {
+        for (var i = 0; i < this.options.data.length; i++) {
             var slide = new SlideView({
                 size: this.options.size,
                 photoUrl: this.options.data[i]

@@ -6,7 +6,6 @@ define(function(require, exports, module) {
     var Transform = require('famous/core/Transform');
     var StateModifier = require('famous/modifiers/StateModifier');
 
-    // import the SlideshowView class
     var SlideshowView = require('views/SlideshowView');
 
     function AppView() {
@@ -17,7 +16,6 @@ define(function(require, exports, module) {
             data: this.options.data
         });
 
-        // add the instance to app view
         this.add(slideshowView);
     }
 
@@ -26,7 +24,7 @@ define(function(require, exports, module) {
 
     AppView.DEFAULT_OPTIONS = {
         // it's a good idea to add a property in the default options
-        // even when it's undefined
+        // even when it's undefined    
         data: undefined
     };
 
