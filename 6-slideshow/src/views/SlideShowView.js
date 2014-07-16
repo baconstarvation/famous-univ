@@ -32,6 +32,28 @@ define(function(require, exports, module) {
         lightboxOpts: {}
     };
 
+    Lightbox.DEFAULT_OPTIONS = {
+        // 'in' state
+        inTransform: Transform.sale(0.001, 0.001, 0.001),
+        inOpacity: 0,
+        inOrigin: [0.5, 0.5],
+
+        // 'show' state
+        showTransform: Transform.identity,
+        showOpacity: 1,
+        showOrigin: [0.5, 0.5],
+
+        // 'out' state
+        outTransform: Transform.scale(0.001, 0.001, 0.001),
+        outOpacity: 0,
+        outOrigin: [0.5, 0.5],
+
+        // transition parameters
+        inTransition: true,
+        outTransition: true,
+        overlap: false
+    };
+
     function _createLightbox() {
         this.lightbox = new Lightbox(this.options.lightboxOpts);
         this.mainNode.add(this.lightbox);
