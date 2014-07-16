@@ -41,7 +41,7 @@ define(function(require, exports, module) {
 
     Lightbox.DEFAULT_OPTIONS = {
         // 'in' state
-        inTransform: Transform.sale(0.001, 0.001, 0.001),
+        inTransform: Transform.scale(0.001, 0.001, 0.001),
         inOpacity: 0,
         inOrigin: [0.5, 0.5],
 
