@@ -6,6 +6,7 @@ define(function(require, exports, module) {
     var Transform = require('famous/core/Transform');
     var StateModifier = require('famous/modifiers/StateModifier');
     var ImageSurface = require('famous/surfaces/ImageSurface');
+    var ContainerSurface = require('famous/surfaces/ContainerSurface');
 
     var SlideshowView = require('views/SlideshowView');
 
