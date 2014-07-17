@@ -29,8 +29,12 @@ define(function(require, exports, module) {
         // it's a good idea to add a property in the default options
         // even when it's undefined    
         data: undefined,
-        cameraWidth: 0.6 * window.innerHeight
+        cameraWidth: 0.5 * window.innerHeight
     };
+
+    AppView.DEFAULT_OPTIONS.slideWidth = 0.8 * AppView.DEFAULT_OPTIONS.cameraWidth;
+    AppView.DEFAULT_OPTIONS.slideHeight = AppView.DEFAULT_OPTIONS.slideWidth + 40;
+    AppView.DEFAULT_OPTIONS.slidePosition = 0.77 * AppView.DEFAULT_OPTIONS.cameraWidth;
 
     function _createCamera() {
         var camera = new ImageSurface({
