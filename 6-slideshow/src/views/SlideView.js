@@ -70,10 +70,11 @@ define(function(require, exports, module) {
     }
 
     function _createPhoto() {
+        var size = this.options.filmSize - 2 * this.options.photoBorder;
         var photoSize = this.options.filmSize - 2 * this.options.photoBorder;
 
         var photo = new ImageSurface({
-            size: [photoSize, photoSize],
+            size: [size, size],
             content: this.options.photoUrl,
             properties: {
                 zIndex: 2,
@@ -84,7 +85,8 @@ define(function(require, exports, module) {
         this.photoModifier = new StateModifier({
             origin: [0.5, 0],
             align: [0.5, 0],
-            transform: Transform.translate(0, this.options.filmBorder + this.options.photoBorder, 2)
+            transform: Transform.translate(0, this.options.filmBorder + this.options.photoBorder, 0.1),
+            opacity: 0.01
         });
 
         this.mainNode.add(this.photoModifier).add(photo);
