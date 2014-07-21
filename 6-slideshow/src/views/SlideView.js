@@ -6,6 +6,10 @@ define(function(require, exports, module) {
     var Transform = require('famous/core/Transform');
     var StateModifier = require('famous/modifiers/StateModifier');
     var ImageSurface = require('famous/surfaces/ImageSurface');
+    var Transitionable = require('famous/transitions/Transitionable');
+    var SpringTransition = require('famous/transitions/SpringTransition');
+
+    Transitionable.registerMethod('spring', SpringTransition);
 
     var SlideData = require('data/SlideData');
 
@@ -26,14 +30,37 @@ define(function(require, exports, module) {
     }
 
     SlideView.prototype = Object.create(View.prototype);
+
     SlideView.prototype.constructor = SlideView;
+
+    SlideView.prototype.fadeIn = function() {
+        this.photoModifier.setOpacity(1, { duration: 1500, curve: 'easeIn' });
+        this.shake();
+    }
+
+    SlideView.prototype.shake = function() {
+        this.rootModifier.halt();
+
+        // rotates the slide view back along the top edge
+        this.rootModifier.setTransform(
+            Transform.rotateX(this.options.angle),
+            { duration: 200, curve: 'easeOut' }
+        );
+
+        // returns the slide back to 0 degrees but using a spring transition
+        this.rootModifier.setTransfƒorm(
+            Transform.identity,
+            { method: 'spring', period: 600, dampingRatio: 0.15 }
+        );
+    };
 
     // setting the size property in default options here
     SlideView.DEFAULT_OPTIONS = {
         size: [400, 450],
         filmBorder: 15,
         photoBorder: 3,
-        photoUrl: SlideData.defaultImage
+        photoUrl: SlideData.defaultImage,
+        angle: -0.5
     };
 
     function _createBackground() {
