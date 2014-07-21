@@ -21,8 +21,6 @@ define(function(require, exports, module) {
     AppView.prototype.constructor = AppView;
 
     AppView.DEFAULT_OPTIONS = {
-        // it's a good idea to add a property in the default options
-        // even when it's undefined    
         data: undefined,
         cameraWidth: 0.5 * window.innerHeight
     };
@@ -61,8 +59,18 @@ define(function(require, exports, module) {
             transform: Transform.translate(0, this.options.slidePosition, 0)
         });
 
-        this.add(slideshowModifier).add(slideshowView);
+        var slideshowContainer = new ContainerSurface({
+            properties: {
+                overflow: 'hidden'
+            }
+        });
+        
+        this.add(slideshowModifier).add(slideshowContainer);
+        slideshowContainer.add(slideshowView);
+        slideshowContainer.context.setPerspective(1000);
     }
 
     module.exports = AppView;
 });
+
+
