@@ -36,7 +36,7 @@ define(function(require, exports, module) {
     SlideView.prototype.fadeIn = function() {
         this.photoModifier.setOpacity(1, { duration: 1500, curve: 'easeIn' });
         this.shake();
-    }
+    };
 
     SlideView.prototype.shake = function() {
         this.rootModifier.halt();
@@ -48,7 +48,7 @@ define(function(require, exports, module) {
         );
 
         // returns the slide back to 0 degrees but using a spring transition
-        this.rootModifier.setTransfƒorm(
+        this.rootModifier.setTransform(
             Transform.identity,
             { method: 'spring', period: 600, dampingRatio: 0.15 }
         );
@@ -98,7 +98,6 @@ define(function(require, exports, module) {
 
     function _createPhoto() {
         var size = this.options.filmSize - 2 * this.options.photoBorder;
-        var photoSize = this.options.filmSize - 2 * this.options.photoBorder;
 
         var photo = new ImageSurface({
             size: [size, size],
