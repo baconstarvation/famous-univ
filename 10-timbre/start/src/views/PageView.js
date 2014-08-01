@@ -9,6 +9,7 @@ define(function(require, exports, module) {
         View.apply(this, arguments);
 
         _createLayout.call(this);
+        _createHeader.call(this);
     }
 
     PageView.prototype = Object.create(View.prototype);
@@ -28,6 +29,20 @@ define(function(require, exports, module) {
         });
 
         this.add(layoutModifier).add(this.layout);
+    }
+
+    function _createHeader() {
+        var backgroundSurface = new Surface({
+            properties: {
+                backgroundColor: 'black'
+            }
+        });
+
+        var backgroundModifier = new StateModifier({
+            transform: Transform.behind
+        });
+
+        this.layout.header.add(backgroundModifier).add(backgroundSurface);
     }
 
     module.exports = PageView;
