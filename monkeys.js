@@ -8,6 +8,8 @@ positioning elements
 creating animations
 handling events
 
+bdfs
+
 
 build custom views
 structure a famo.us app using nested views
