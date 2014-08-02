@@ -1,3 +1,5 @@
+/*** PageView.js ***/
+
 define(function(require, exports, module) {
     var View            = require('famous/core/View');
     var Surface         = require('famous/core/Surface');
@@ -5,6 +7,7 @@ define(function(require, exports, module) {
     var StateModifier   = require('famous/modifiers/StateModifier');
     var HeaderFooter    = require('famous/views/HeaderFooterLayout');
     var ImageSurface    = require('famous/surfaces/ImageSurface');
+    var FastClick       = require('famous/inputs/FastClick');
 
     function PageView() {
         View.apply(this, arguments);
@@ -12,6 +15,8 @@ define(function(require, exports, module) {
         _createLayout.call(this);
         _createHeader.call(this);
         _createBody.call(this);
+
+        _setListeners.call(this);
     }
 
     PageView.prototype = Object.create(View.prototype);
@@ -40,10 +45,6 @@ define(function(require, exports, module) {
             }
         });
 
-        var backgroundModifier = new StateModifier({
-            transform: Transform.behind
-        });
-
         this.hamburgerSurface = new ImageSurface({
             size: [44, 44],
             content: 'img/hamburger.png'
@@ -59,6 +60,10 @@ define(function(require, exports, module) {
             content: 'img/icon.png'
         });
 
+        var backgroundModifier = new StateModifier({
+            transform: Transform.behind
+        });
+
         var hamburgerModifier = new StateModifier({
             origin: [0, 0.5],
             align : [0, 0.5]
@@ -72,22 +77,27 @@ define(function(require, exports, module) {
         var iconModifier = new StateModifier({
             origin: [1, 0.5],
             align : [1, 0.5]
-        })
+        });
 
         this.layout.header.add(backgroundModifier).add(backgroundSurface);
         this.layout.header.add(hamburgerModifier).add(this.hamburgerSurface);
         this.layout.header.add(searchModifier).add(searchSurface);
         this.layout.header.add(iconModifier).add(iconSurface);
-
     }
 
     function _createBody() {
         this.bodySurface = new ImageSurface({
-            size: [undefined, true],
+            size : [undefined, true],
             content : 'img/body.png'
         });
 
         this.layout.content.add(this.bodySurface);
+    }
+
+    function _setListeners() {
+        this.hamburgerSurface.on('click', function() {
+            this._eventOutput.emit('menuToggle');
+        }.bind(this));
     }
 
     module.exports = PageView;
