@@ -1,6 +1,5 @@
 /*** AppView.js ***/
 
-
 define(function(require, exports, module) {
     var View          = require('famous/core/View');
     var Surface       = require('famous/core/Surface');
@@ -13,6 +12,7 @@ define(function(require, exports, module) {
         View.apply(this, arguments);
 
         _createPageView.call(this);
+        _setListeners.call(this);
     }
 
     AppView.prototype = Object.create(View.prototype);
@@ -25,6 +25,12 @@ define(function(require, exports, module) {
         this.pageModifier = new StateModifier();
 
         this.add(this.pageModifier).add(this.pageView);
+    }
+
+    function _setListeners() {
+        this.pageView.on('menuToggle', function(){
+            console.log('menu toggle!');
+        }.bind(this));
     }
 
     module.exports = AppView;
