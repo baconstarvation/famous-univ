@@ -17,6 +17,8 @@ use the lightbox
 emit and listen for events
 
 
+gdfsfdfdfg
+
 
 AppView - the app view is the top level view and contains the camera surface
 and the slideshow view.
