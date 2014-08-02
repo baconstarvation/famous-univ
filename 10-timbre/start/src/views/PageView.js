@@ -6,13 +6,12 @@ define(function(require, exports, module) {
     var HeaderFooter    = require('famous/views/HeaderFooterLayout');
     var ImageSurface    = require('famous/surfaces/ImageSurface');
 
-
-
     function PageView() {
         View.apply(this, arguments);
 
         _createLayout.call(this);
         _createHeader.call(this);
+        _createBody.call(this);
     }
 
     PageView.prototype = Object.create(View.prototype);
@@ -80,6 +79,15 @@ define(function(require, exports, module) {
         this.layout.header.add(searchModifier).add(searchSurface);
         this.layout.header.add(iconModifier).add(iconSurface);
 
+    }
+
+    function _createBody() {
+        this.bodySurface = new ImageSurface({
+            size: [undefined, true],
+            content : 'img/body.png'
+        });
+
+        this.layout.content.add(this.bodySurface);
     }
 
     module.exports = PageView;
