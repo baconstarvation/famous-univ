@@ -10,15 +10,22 @@ define(function(require, exports, module) {
     var MenuView = require('views/MenuView');
     var StripData = require('data/StripData');
 
+    var GenericSync     = require('famous/inputs/GenericSync');
+    var MouseSync       = require('famous/inputs/MouseSync');
+    var TouchSync       = require('famous/inputs/TouchSync');
+    GenericSync.register({'mouse': MouseSync, 'touch': TouchSync});
+
     function AppView() {
         View.apply(this, arguments);
 
         this.menuToggle = false;
+        this.pageViewPos = 0;
 
         _createPageView.call(this);
         _createMenuView.call(this);
 
         _setListeners.call(this);
+        _handleSwipe.call(this);
     }
 
     AppView.prototype = Object.create(View.prototype);
@@ -40,7 +47,7 @@ define(function(require, exports, module) {
     }
 
     function _createMenuView() {
-        this.menuView = new MenuView();
+        this.menuView = new MenuView({ stripData: StripData });
 
         var menuModifier = new StateModifier({
             transform: Transform.behind
@@ -53,14 +60,18 @@ define(function(require, exports, module) {
         this.pageView.on('menuToggle', this.toggleMenu.bind(this));
     }
 
-    function _createMenuView() {
-        this.menuView = new MenuView({ stripData: StripData });
+    function _handleSwipe() {
+        var sync = new GenericSync(
+            ['mouse', 'touch'],
+            {direction : GenericSync.DIRECTION_X}
+        );
 
-        var menuModifier = new StateModifier({
-            transform: Transform.behind
-        });
+        this.pageView.pipe(sync);
 
-        this.add(menuModifier).add(this.menuView);
+        sync.on('update', function(data) {
+            this.pageViewPos += data.delta;
+            this.pageModifier.setTransform(Transform.translate(this.pageViewPos, 0, 0)); 
+        }.bind(this));
     }
 
     AppView.prototype.toggleMenu = function() {
