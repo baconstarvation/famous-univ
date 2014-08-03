@@ -11,7 +11,10 @@ define(function(require, exports, module) {
     function AppView() {
         View.apply(this, arguments);
 
+        this.menuToggle = false;
+
         _createPageView.call(this);
+
         _setListeners.call(this);
     }
 
@@ -28,10 +31,17 @@ define(function(require, exports, module) {
     }
 
     function _setListeners() {
-        this.pageView.on('menuToggle', function(){
-            console.log('menu toggle!');
-        }.bind(this));
+        this.pageView.on('menuToggle', this.toggleMenu.bind(this));
     }
+
+    AppView.prototype.toggleMenu = function() {
+        if(this.menuToggle) {
+            this.slideLeft();
+        } else {
+            this.slideRight();
+        }
+        this.menuToggle = !this.menuToggle;
+    };
 
     module.exports = AppView;
 });
