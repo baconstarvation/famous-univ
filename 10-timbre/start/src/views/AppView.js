@@ -43,5 +43,19 @@ define(function(require, exports, module) {
         this.menuToggle = !this.menuToggle;
     };
 
+    AppView.prototype.slideRight = function() {
+        this.pageModifier.setTransform(Transform.translate(276, 0, 0), {
+            duration: 300,
+            curve: 'easeOut'
+        });
+    };
+
+    AppView.prototype.slideLeft = function() {
+        this.pageModifier.setTransform(Transform.translate(0, 0, 0), {
+            duration: 300,
+            curve: 'easeOut'
+        });
+    };
+
     module.exports = AppView;
 });
