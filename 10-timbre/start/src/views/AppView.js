@@ -7,6 +7,7 @@ define(function(require, exports, module) {
     var StateModifier = require('famous/modifiers/StateModifier');
  
     var PageView = require('views/PageView');
+    var MenuView = require('views/MenuView');
 
     function AppView() {
         View.apply(this, arguments);
@@ -14,6 +15,7 @@ define(function(require, exports, module) {
         this.menuToggle = false;
 
         _createPageView.call(this);
+        _createMenuView.call(this);
 
         _setListeners.call(this);
     }
@@ -34,6 +36,16 @@ define(function(require, exports, module) {
         this.pageModifier = new StateModifier();
 
         this.add(this.pageModifier).add(this.pageView);
+    }
+
+    function _createMenuView() {
+        this.menuView = new MenuView();
+
+        var menuModifier = new StateModifier({
+            transform: Transform.behind
+        });
+
+        this.add(menuModifier).add(this.menuView);
     }
 
     function _setListeners() {
