@@ -5,7 +5,7 @@ define(function(require, exports, module) {
     var Surface       = require('famous/core/Surface');
     var Transform     = require('famous/core/Transform');
     var StateModifier = require('famous/modifiers/StateModifier');
-    
+
     var StripView = require('views/StripView');
 
     function MenuView() {
@@ -17,7 +17,9 @@ define(function(require, exports, module) {
     MenuView.prototype = Object.create(View.prototype);
     MenuView.prototype.constructor = MenuView;
 
-    MenuView.DEFAULT_OPTIONS = {};
+    MenuView.DEFAULT_OPTIONS = {
+        stripData: {}
+    };
 
     function _createStripViews() {
         var stripView = new StripView();

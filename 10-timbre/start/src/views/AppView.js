@@ -8,6 +8,7 @@ define(function(require, exports, module) {
  
     var PageView = require('views/PageView');
     var MenuView = require('views/MenuView');
+    var StripData = require('data/StripData');
 
     function AppView() {
         View.apply(this, arguments);
@@ -50,6 +51,16 @@ define(function(require, exports, module) {
 
     function _setListeners() {
         this.pageView.on('menuToggle', this.toggleMenu.bind(this));
+    }
+
+    function _createMenuView() {
+        this.menuView = new MenuView({ stripData: StripData });
+
+        var menuModifier = new StateModifier({
+            transform: Transform.behind
+        });
+
+        this.add(menuModifier).add(this.menuView);
     }
 
     AppView.prototype.toggleMenu = function() {
