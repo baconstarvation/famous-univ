@@ -73,8 +73,9 @@ define(function(require, exports, module) {
         this.pageView.pipe(sync);
 
         sync.on('update', function(data) {
-            this.pageViewPos += data.delta;
-            this.pageModifier.setTransform(Transform.translate(this.pageViewPos, 0, 0)); 
+            var currentPosition = this.pageViewPos.get();
+
+            this.pageViewPos.set(Math.max(0, currentPosition + data.delta));
         }.bind(this));
     }
 
