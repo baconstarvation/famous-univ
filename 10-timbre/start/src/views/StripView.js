@@ -12,6 +12,7 @@ define(function(require, exports, module) {
 
         _createBackground.call(this);
         _createIcon.call(this);
+        _createTitle.call(this);
     }
 
     StripView.prototype = Object.create(View.prototype);
@@ -32,9 +33,7 @@ define(function(require, exports, module) {
             size: [this.options.width, this.options.height],
             properties: {
                 backgroundColor: 'black',
-                // on certain devices, a skewed surface can have jagged edges
-                // the 1px box-shadow provides some anti-aliasing to soften this
-                boxShadow: '0 0 1px rgba(0,0,0,1)',
+                boxShadow: '0 0 1px black'
             }
         });
 
@@ -46,7 +45,6 @@ define(function(require, exports, module) {
             transform: Transform.skew(0, 0, this.options.angle)
         });
 
-        // we're first skewing our surface then rotating it
         this.add(rotateModifier).add(skewModifier).add(backgroundSurface);
     }
 
@@ -54,13 +52,10 @@ define(function(require, exports, module) {
         var iconSurface = new ImageSurface({
             size: [this.options.iconSize, this.options.iconSize],
             content : this.options.iconUrl,
-            properties: {
-                pointerEvents : 'none'
-            }
+            pointerEvents : 'none'
         });
 
         var iconModifier = new StateModifier({
-            // places the icon in the proper location
             transform: Transform.translate(24, 2, 0)
         });
 
@@ -73,6 +68,7 @@ define(function(require, exports, module) {
             content: this.options.title,
             properties: {
                 color: 'white',
+                fontFamily: 'AvenirNextCondensed-DemiBold',
                 fontSize: this.options.fontSize + 'px',
                 textTransform: 'uppercase',
                 pointerEvents : 'none'
@@ -88,3 +84,8 @@ define(function(require, exports, module) {
 
     module.exports = StripView;
 });
+
+
+
+
+
