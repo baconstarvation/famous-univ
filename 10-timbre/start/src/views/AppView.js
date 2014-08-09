@@ -3,26 +3,24 @@
 define(function(require, exports, module) {
     var View            = require('famous/core/View');
     var Surface         = require('famous/core/Surface');
+    var Modifier        = require('famous/core/Modifier');
     var Transform       = require('famous/core/Transform');
     var StateModifier   = require('famous/modifiers/StateModifier');
+    var Easing          = require('famous/transitions/Easing');
     var Transitionable  = require('famous/transitions/Transitionable');
-    var Modifier        = require('famous/core/Modifier');
-
-    var PageView = require('views/PageView');
-    var MenuView = require('views/MenuView');
-    var StripData = require('data/StripData');
-
-
     var GenericSync     = require('famous/inputs/GenericSync');
     var MouseSync       = require('famous/inputs/MouseSync');
     var TouchSync       = require('famous/inputs/TouchSync');
     GenericSync.register({'mouse': MouseSync, 'touch': TouchSync});
 
+    var PageView      = require('views/PageView');
+    var MenuView      = require('views/MenuView');
+    var StripData     = require('data/StripData');
+
     function AppView() {
         View.apply(this, arguments);
 
         this.menuToggle = false;
-        // create transitionable with initial value of 0
         this.pageViewPos = new Transitionable(0);
 
         _createPageView.call(this);
@@ -40,14 +38,20 @@ define(function(require, exports, module) {
         transition: {
             duration: 300,
             curve: 'easeOut'
-        }
+        },
+        posThreshold: 138,
+        velThreshold: 0.75
     };
 
     function _createPageView() {
         this.pageView = new PageView();
-        this.pageModifier = new StateModifier();
+        this.pageModifier = new Modifier({
+            transform: function() {
+                return Transform.translate(this.pageViewPos.get(), 0, 0);
+            }.bind(this)
+        });
 
-        this.add(this.pageModifier).add(this.pageView);
+        this._add(this.pageModifier).add(this.pageView);
     }
 
     function _createMenuView() {
@@ -85,7 +89,7 @@ define(function(require, exports, module) {
             var velocity = data.velocity;
             var position = this.pageViewPos.get();
 
-            if(position > this.options.posThreshold) {
+            if(this.pageViewPos.get() > this.options.posThreshold) {
                 if(velocity < -this.options.velThreshold) {
                     this.slideLeft();
                 } else {
@@ -99,17 +103,6 @@ define(function(require, exports, module) {
                 }
             }
         }).bind(this));
-    }
-
-    function _createPageView() {
-        this.pageView = new PageView();
-        this.pageModifier = new Modifier({
-            transform: function() {
-                return Transform.translate(this.pageViewPos.get(), 0, 0);
-            }.bind(this)
-        });
-
-        this.add(this.pageModifier).add(this.pageView);
     }
 
     AppView.prototype.toggleMenu = function() {
@@ -131,7 +124,7 @@ define(function(require, exports, module) {
         this.pageViewPos.set(this.options.openPosition, this.options.transition, function() {
             this.menuToggle = true;
         }.bind(this));
-    }
+    };
 
     module.exports = AppView;
 });
