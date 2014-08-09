@@ -5,14 +5,16 @@ define(function(require, exports, module) {
     var Surface       = require('famous/core/Surface');
     var Transform     = require('famous/core/Transform');
     var StateModifier = require('famous/modifiers/StateModifier');
-    var Timer = require('famous/utilities/Timer');
+    var Timer         = require('famous/utilities/Timer');
 
-    var StripView = require('views/StripView');
+    var StripView     = require('views/StripView');
+    var FeaturedView  = require('views/FeaturedView');
 
     function MenuView() {
         View.apply(this, arguments);
 
         _createStripViews.call(this);
+        _createFeaturedView.call(this);
     }
 
     MenuView.prototype = Object.create(View.prototype);
@@ -26,6 +28,7 @@ define(function(require, exports, module) {
         topOffset: 37,
         stripOffset: 58,
         staggerDelay: 35,
+        featureOffset: 280,
         transition: {
             duration: 400,
             curve: 'easeOut'
@@ -51,35 +54,17 @@ define(function(require, exports, module) {
 
             yOffset += this.options.stripOffset;
         }
-
-
-        var stripView = new StripView();
-        var stripModifier = new StateModifier({
-            transform: Transform.translate(0, 200, 0)
-        });
-
-        this.add(stripModifier).add(stripView);
     }
 
-    function _createStripViews() {
-        this.stripModifiers = [];
-        var yOffset = this.options.topOffset;
+    function _createFeaturedView() {
+        var featuredView = new FeaturedView({ angle: this.options.angle });
 
-        for (var i = 0; i < this.options.stripData.length; i++) {
-            var stripView = new StripView({
-                iconUrl: this.options.stripData[i].iconUrl,
-                title: this.options.stripData[i].title
-            });
+        this.featuredMod = new StateModifier({
+            transform: Transform.translate(0, this.options.featureOffset, 0),
+            opacity: 0
+        });
 
-            var stripModifier = new StateModifier({
-                transform: Transform.translate(0, yOffset, 0)
-            });
-
-            this.stripModifiers.push(stripModifier);
-            this.add(stripModifier).add(stripView);
-
-            yOffset += this.options.stripOffset;
-        }
+        this.add(this.featuredMod).add(featuredView);
     }
 
     MenuView.prototype.resetStrips = function() {
@@ -91,6 +76,8 @@ define(function(require, exports, module) {
 
             this.stripModifiers[i].setTransform(Transform.translate(initX, initY, 0));
         }
+
+        this.featuredMod.setOpacity(0);
     };
 
     MenuView.prototype.animateStrips = function() {
@@ -109,6 +96,10 @@ define(function(require, exports, module) {
                     Transform.translate( 0, yOffset, 0), transition);
             }.bind(this, i), i * delay);
         }
+
+        Timer.setTimeout((function() {
+            this.featuredMod.setOpacity(1, transition);
+        }).bind(this), transition.duration);
     };
 
     module.exports = MenuView;
