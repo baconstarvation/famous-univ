@@ -7,7 +7,6 @@ define(function(require, exports, module) {
     var StateModifier   = require('famous/modifiers/StateModifier');
     var HeaderFooter    = require('famous/views/HeaderFooterLayout');
     var ImageSurface    = require('famous/surfaces/ImageSurface');
-    var FastClick       = require('famous/inputs/FastClick');
 
     function PageView() {
         View.apply(this, arguments);
@@ -26,6 +25,17 @@ define(function(require, exports, module) {
     PageView.DEFAULT_OPTIONS = {
         headerSize: 44
     };
+
+    function _createBacking() {
+        var backing = new Surface({
+            properties: {
+                backgroundColor: 'black',
+                boxShadow: '0 0 20px rgba(0,0,0,0.5)'
+            }
+        });
+
+        this.add(backing);
+    }
 
     function _createLayout() {
         this.layout = new HeaderFooter({
@@ -48,21 +58,21 @@ define(function(require, exports, module) {
 
         this.hamburgerSurface = new ImageSurface({
             size: [44, 44],
-            content: 'img/hamburger.png'
+            content : 'img/hamburger.png'
         });
 
         var searchSurface = new ImageSurface({
             size: [232, 44],
-            content: 'img/search.png'
+            content : 'img/search.png'
         });
 
         var iconSurface = new ImageSurface({
             size: [44, 44],
-            content: 'img/icon.png'
+            content : 'img/icon.png'
         });
 
         var backgroundModifier = new StateModifier({
-            transform: Transform.behind
+            transform : Transform.behind
         });
 
         var hamburgerModifier = new StateModifier({
@@ -101,17 +111,6 @@ define(function(require, exports, module) {
         }.bind(this));
 
         this.bodySurface.pipe(this._eventOutput);
-    }
-
-    function _createBacking() {
-        var backing = new Surface({
-            properties: {
-                backgroundColor: 'black',
-                boxShadow: '0 0 20px rgba(0,0,0,0.5)'
-            }
-        });
-
-        this.add(backing);
     }
 
     module.exports = PageView;
