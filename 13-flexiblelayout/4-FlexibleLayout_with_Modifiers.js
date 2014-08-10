@@ -1,5 +1,6 @@
 var Engine = require('famous/core/Engine');
 var Surface = require('famous/core/Surface');
+var StateModifier = require('famous/modifiers/StateModifier');
 var FlexibleLayout = require('famous/views/FlexibleLayout');
 
 var mainContext = Engine.createContext();
@@ -10,7 +11,7 @@ var colors = [
 	'rgba(0, 0, 256, .7)'
 ];
 
-var ratios = [1, 3];
+var ratios = [1, 3, 5];
 var layout = new FlexibleLayout({
 	ratios: ratios
 });
@@ -28,4 +29,8 @@ for (var i = 0; i < 2; i++) {
 
 layout.sequenceFrom(surfaces);
 
-mainContext.add(layout);
+var mod = new StateModifier({
+	size: [400, 400]
+})
+
+mainContext.add(mod).add(layout);

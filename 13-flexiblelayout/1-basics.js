@@ -10,14 +10,14 @@ var colors = [
 	'rgba(0, 0, 256, .7)'
 ];
 
-var ratios = [1, 3];
+var ratios = [1, 3, 5];
 var layout = new FlexibleLayout({
 	ratios: ratios
 });
 
 var surfaces = [];
 
-for (var i = 0; i < 2; i++) {
+for (var i = 0; i < 3; i++) {
 	surfaces.push(new Surface({
 		size: [undefined, undefined],
 		properties: {
