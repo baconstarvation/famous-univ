@@ -2,6 +2,7 @@ ddgdsgdsgs
 
 did some readings
 
+https://medium.com/@dickeyxxx/best-practices-for-building-angular-js-apps-266c1a4a6917
 
 displaying content
 positioning elements
